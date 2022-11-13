@@ -3,6 +3,8 @@ package eu.mshade.axolotl.marshal
 import eu.mshade.enderframe.mojang.chat.ChatColor
 import eu.mshade.enderframe.mojang.chat.TextComponent
 import eu.mshade.enderframe.mojang.chat.TextComponentEntry
+import eu.mshade.enderframe.mojang.chat.TextHoverEvent
+import eu.mshade.enderframe.mojang.chat.TextHoverEventType
 import eu.mshade.mwork.binarytag.BinaryTagType
 import eu.mshade.mwork.binarytag.entity.CompoundBinaryTag
 import eu.mshade.mwork.binarytag.entity.ListBinaryTag
@@ -43,6 +45,17 @@ object TextComponentMarshal {
         compoundBinaryTag.putBoolean("strikethrough", textComponentEntry.isStrikethrough)
         compoundBinaryTag.putBoolean("obfuscated", textComponentEntry.isObfuscated)
         compoundBinaryTag.putString("color", (textComponentEntry.chatColor?: ChatColor.WHITE).code)
+
+        textComponentEntry.hoverEvent.takeIf { it != null }?.let{
+            compoundBinaryTag.putBinaryTag("hoverEvent", serializeTextHoverEvent(it))
+        }
+
+        return compoundBinaryTag
+    }
+
+    private fun serializeTextHoverEvent(textHoverEvent: TextHoverEvent, compoundBinaryTag: CompoundBinaryTag = CompoundBinaryTag()): CompoundBinaryTag{
+        compoundBinaryTag.putString("action", textHoverEvent.type.name)
+        compoundBinaryTag.putString("value", textHoverEvent.value)
         return compoundBinaryTag
     }
 
@@ -53,7 +66,16 @@ object TextComponentMarshal {
         textComponentEntry.withStrikethrough(compoundBinaryTag.getBoolean("strikethrough"))
         textComponentEntry.withObfuscated(compoundBinaryTag.getBoolean("obfuscated"))
         textComponentEntry.withColor(ChatColor.getByChar(compoundBinaryTag.getString("color")))
+
+        compoundBinaryTag.getBinaryTag("hoverEvent")?.let{
+            textComponentEntry.withHoverEvent(deserializeTextHoverEvent(it as CompoundBinaryTag))
+        }
+
         return textComponentEntry
+    }
+
+    private fun deserializeTextHoverEvent(compoundBinaryTag: CompoundBinaryTag): TextHoverEvent{
+        return TextHoverEvent.from(compoundBinaryTag.getString("value"), TextHoverEventType.valueOf(compoundBinaryTag.getString("action")))
     }
 
 }

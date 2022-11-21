@@ -4,6 +4,7 @@ import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.world.World
 import eu.mshade.enderframe.world.chunk.Chunk
+import eu.mshade.enderframe.world.chunk.Section
 import io.netty.channel.Channel
 
 abstract class AxolotlSession(val channel: Channel) {
@@ -27,5 +28,5 @@ abstract class AxolotlSession(val channel: Channel) {
     abstract fun sendInitializeWorld(world: World)
 
 
-
+    abstract fun sendSection(section: Section)
 }

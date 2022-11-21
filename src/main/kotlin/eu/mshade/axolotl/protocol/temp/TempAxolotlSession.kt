@@ -5,6 +5,7 @@ import eu.mshade.enderframe.entity.Entity
 import eu.mshade.enderframe.entity.Player
 import eu.mshade.enderframe.world.World
 import eu.mshade.enderframe.world.chunk.Chunk
+import eu.mshade.enderframe.world.chunk.Section
 import io.netty.channel.Channel
 
 class TempAxolotlSession(channel: Channel) : AxolotlSession(channel) {
@@ -34,6 +35,10 @@ class TempAxolotlSession(channel: Channel) : AxolotlSession(channel) {
     }
 
     override fun sendInitializeWorld(world: World) {
+        TODO("Not yet implemented")
+    }
+
+    override fun sendSection(section: Section) {
         TODO("Not yet implemented")
     }
 

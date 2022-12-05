@@ -42,5 +42,9 @@ class TempAxolotlSession(channel: Channel) : AxolotlSession(channel) {
         TODO("Not yet implemented")
     }
 
+    override fun sendMessage(player: Player, message: String) {
+        TODO("Not yet implemented")
+    }
+
 
 }

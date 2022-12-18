@@ -30,4 +30,6 @@ abstract class AxolotlSession(val channel: Channel) {
     abstract fun sendSection(section: Section)
 
     abstract fun sendChatMessage(player: Player, message: String)
+
+    abstract fun sendInitialization(worlds: Collection<World>, players: Collection<Player>)
 }

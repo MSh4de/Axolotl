@@ -42,7 +42,11 @@ class TempAxolotlSession(channel: Channel) : AxolotlSession(channel) {
         TODO("Not yet implemented")
     }
 
-    override fun sendMessage(player: Player, message: String) {
+    override fun sendChatMessage(player: Player, message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun sendInitialization(worlds: Collection<World>, players: Collection<Player>) {
         TODO("Not yet implemented")
     }
 
